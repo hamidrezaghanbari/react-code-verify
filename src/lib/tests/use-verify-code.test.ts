@@ -1,15 +1,16 @@
 import { renderHook } from '@testing-library/react'
+import { useVerifyCode } from '../hooks'
 
 describe('Hook use-verify-code Logic Tests', () => {
   describe('Arguments And Return hooks Properties', () => {
     it('Scenario - When hook calls with length of input code, Expectation - Then hook should return input state with same length', () => {
       const randomLength = Math.floor(Math.random() * 100)
 
-      // Arrange
-      const { result } = renderHook(() => useVerifyCode({ length: randomLength }))
+      // Arrange And Act
+      const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
 
       // Assert
-      expect(result.current.inputValue).toHaveLength(randomLength)
+      expect(result.current.codeValue).toHaveLength(randomLength)
     })
   })
 
