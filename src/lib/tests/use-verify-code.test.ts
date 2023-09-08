@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { renderHook, act } from '@testing-library/react'
 import { useVerifyCode } from '../hooks'
 
 describe('Hook use-verify-code Logic Tests', () => {
@@ -22,16 +22,17 @@ describe('Hook use-verify-code Logic Tests', () => {
       const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
 
       // Act
-      const { handleChangeInput, inputValue } = result.current
-
       for (let index = 0; index < randomLength - 1; index++) {
         const currentDigit = Math.floor(Math.random() * 9)
 
-        handleChangeInput(currentDigit)
-        randomDigit = randomDigit + currentDigit
+        act(() => {
+          result.current.handleChangeInput(currentDigit)
+        })
+
+        randomDigit = randomDigit + currentDigit?.toString()
 
         // Assert
-        expect(inputValue).toBe(randomDigit)
+        expect(result.current.inputValue).toBe(randomDigit)
       }
     })
 
@@ -41,38 +42,44 @@ describe('Hook use-verify-code Logic Tests', () => {
       // Arrange
       const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
 
-      const { handleChangeInput, inputValue } = result.current
-
       for (let index = 0; index < randomLength - 1; index++) {
         const currentDigit = Math.floor(Math.random() * 9)
 
-        handleChangeInput(currentDigit)
-        randomDigit = randomDigit + currentDigit
+        act(() => {
+          result.current.handleChangeInput(currentDigit)
+        })
+
+        randomDigit = randomDigit + currentDigit?.toString()
       }
 
       // Act
       const oneExtraDigit = Math.floor(Math.random() * 9)
-      handleChangeInput(oneExtraDigit)
+      act(() => {
+        result.current.handleChangeInput(oneExtraDigit)
+      })
 
       // Assert
-      expect(inputValue).toBe(randomDigit)
+      expect(result.current.inputValue).toBe(randomDigit)
     })
 
     it('Scenario - When user press non digit, Expectation - Ensure no character added to the result input code', () => {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+      const randomCounts = Math.floor(Math.random() * 100)
 
       // Arrange
       const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
 
       // Act
-      const { handleChangeInput, inputValue } = result.current
-      const beforeActionInputValue = inputValue
-      console.log(inputValue)
-      handleChangeInput(characters?.charAt(Math.floor(Math.random() * characters?.length)))
-      console.log(inputValue)
+      const { inputValue: beforeActionInputValue } = result.current
+
+      for (let index = 0; index < randomCounts; index++) {
+        act(() => {
+          result.current.handleChangeInput(characters?.charAt(Math.floor(Math.random() * characters?.length)))
+        })
+      }
 
       // Assert
-      expect(inputValue).toBe(beforeActionInputValue)
+      expect(result.current.inputValue).toBe(beforeActionInputValue)
     })
   })
 
