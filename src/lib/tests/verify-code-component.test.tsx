@@ -1,11 +1,16 @@
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+
 describe('Component verify-code Tests', () => {
   const randomLength = Math.floor(Math.random() * 100)
 
   describe('Initial component to the dom', () => {
     it('Scenario - When component render in page, Expectation - Then cursor should focus on first digit', () => {
       // Arrange
-      // Act
+      render(<ReactVerifyCode />)
+
       // Assert
+      expect(screen.getAllByRole('verify-code')[0]).toHaveFocus()
     })
   })
 
