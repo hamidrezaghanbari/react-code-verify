@@ -14,8 +14,8 @@ describe('Hook use-verify-code Logic Tests', () => {
     })
   })
 
-  describe('Keyboard (Characters, Digits) Actions', () => {
-    it('Scenario - When user press digit, Expectation and there is space for adding another digit - Then add one digit to the result input code', () => {
+  describe('Add Character Action', () => {
+    it('Scenario - When add digit action fired, Expectation and there is space for adding another digit - Then add one digit to the result input code', () => {
       let randomDigit = ''
 
       // Arrange
@@ -36,7 +36,7 @@ describe('Hook use-verify-code Logic Tests', () => {
       }
     })
 
-    it('Scenario - When user press digit and there is no space for adding another digit, Expectation - Ensure no digit added to result input code', () => {
+    it('Scenario - When add digit action fired and there is no space for adding another digit, Expectation - Ensure no digit added to result input code', () => {
       let randomDigit = ''
 
       // Arrange
@@ -62,7 +62,7 @@ describe('Hook use-verify-code Logic Tests', () => {
       expect(result.current.inputValue).toBe(randomDigit)
     })
 
-    it('Scenario - When user press non digit, Expectation - Ensure no character added to the result input code', () => {
+    it('Scenario - When add non digit action fired, Expectation - Ensure no character added to the result input code', () => {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
       const randomCounts = Math.floor(Math.random() * 100)
 
@@ -83,53 +83,37 @@ describe('Hook use-verify-code Logic Tests', () => {
     })
   })
 
-  describe('Keyboard (Backspace, Enter) Actions', () => {
-    describe('Backspace key', () => {
-      it('Scenario - When user press Backspace And There is other digits on left side, Expectation - Then one digit should clean from result input code', () => {
-        // Arrange
-        const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
+  describe('Remove Character Action', () => {
+    it('Scenario - When remove action fired And There is other digits on left side, Expectation - Then one digit should remove from result input code', () => {
+      // Arrange
+      const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
 
-        // Act
-        const oneDigit = Math.floor(Math.random() * 9)
+      // Act
+      const oneDigit = Math.floor(Math.random() * 9)
 
-        act(() => {
-          result.current.handleChangeInput(oneDigit)
-        })
-
-        act(() => {
-          result.current.handleKeyboardActions('Backspace')
-        })
-
-        // Assert
-        expect(result.current.inputValue).toBe('')
+      act(() => {
+        result.current.handleChangeInput(oneDigit)
       })
 
-      it('Scenario - When user press Backspace And There is no other digits on left side, Expectation - Ensure no digit should clean from result input code', () => {
-        // Arrange
-        const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
-
-        // Act
-        act(() => {
-          result.current.handleKeyboardActions('Backspace')
-        })
-
-        // Assert
-        expect(result.current.inputValue).toBe('')
+      act(() => {
+        result.current.handleKeyboardActions('Backspace')
       })
+
+      // Assert
+      expect(result.current.inputValue).toBe('')
     })
 
-    describe('Enter Key', () => {
-      it('Scenario - When user press Enter And Then result input code is full, Expectation - Then submit function should call', () => {
-        // Arrange
-        // Act
-        // Assert
+    it('Scenario - When remove action fired And There is no other digits on left side, Expectation - Ensure no digit should remove from result input code', () => {
+      // Arrange
+      const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
+
+      // Act
+      act(() => {
+        result.current.handleKeyboardActions('Backspace')
       })
 
-      it('Scenario - When user press Enter And Then result input code is not full, Expectation - Then submit function should not call', () => {
-        // Arrange
-        // Act
-        // Assert
-      })
+      // Assert
+      expect(result.current.inputValue).toBe('')
     })
   })
 })
