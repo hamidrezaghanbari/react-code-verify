@@ -12,12 +12,6 @@ describe('Hook use-verify-code Logic Tests', () => {
       // Assert
       expect(result.current.codeValue).toHaveLength(randomLength)
     })
-
-    it('Scenario - When hook calls, Expectation - Then cursor should focus on first digit', () => {
-      // Arrange
-      // Act
-      // Assert
-    })
   })
 
   describe('Keyboard (Characters, Digits) Actions', () => {
@@ -87,43 +81,9 @@ describe('Hook use-verify-code Logic Tests', () => {
       // Assert
       expect(result.current.inputValue).toBe(beforeActionInputValue)
     })
-
-    it('Scenario - user press digit and there is space for adding another digit, Expectation - Ensure cursor focus on next digit', () => {
-      // Arrange
-      // Act
-      // Assert
-    })
   })
 
-  describe('Keyboard (Arrow keys, Backspace, Enter, CTRL+V) Actions', () => {
-    describe('Arrow Left Key', () => {
-      it('Scenario - When user press Arrow left And There is other digits on left side, Expectation - Then cursor should go one digit left', () => {
-        // Arrange
-        // Act
-        // Assert
-      })
-
-      it('Scenario - When user press Arrow left And There isn no other digits on left side, Expectation - Ensure cursor should stay on its position', () => {
-        // Arrange
-        // Act
-        // Assert
-      })
-    })
-
-    describe('Arrow Right Key', () => {
-      it('Scenario - When user press Arrow right And There is other digits on right side, Expectation - Then cursor should go one digit right', () => {
-        // Arrange
-        // Act
-        // Assert
-      })
-
-      it('Scenario - When user press Arrow right And There is no other digits on right side, Expectation - Ensure cursor should stay on its position', () => {
-        // Arrange
-        // Act
-        // Assert
-      })
-    })
-
+  describe('Keyboard (Backspace, Enter) Actions', () => {
     describe('Backspace key', () => {
       it('Scenario - When user press Backspace And There is other digits on left side, Expectation - Then one digit should clean from result input code', () => {
         // Arrange
@@ -166,14 +126,6 @@ describe('Hook use-verify-code Logic Tests', () => {
       })
 
       it('Scenario - When user press Enter And Then result input code is not full, Expectation - Then submit function should not call', () => {
-        // Arrange
-        // Act
-        // Assert
-      })
-    })
-
-    describe('CTRL+V Key', () => {
-      it('Scenario - When user press CTRL+V, Expectation - Then the value should replace to entire result code', () => {
         // Arrange
         // Act
         // Assert
