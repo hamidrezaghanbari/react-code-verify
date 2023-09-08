@@ -127,14 +127,35 @@ describe('Hook use-verify-code Logic Tests', () => {
     describe('Backspace key', () => {
       it('Scenario - When user press Backspace And There is other digits on left side, Expectation - Then one digit should clean from result input code', () => {
         // Arrange
+        const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
+
         // Act
+        const { inputValue: beforeActionInputValue } = result.current
+        const oneDigit = Math.floor(Math.random() * 9)
+
+        act(() => {
+          result.current.handleChangeInput(oneDigit)
+        })
+
+        act(() => {
+          result.current.handleKeyboardActions('Backspace')
+        })
+
         // Assert
+        expect(result.current.inputValue).toBe(beforeActionInputValue.slice(0, -1))
       })
 
       it('Scenario - When user press Backspace And There is no other digits on left side, Expectation - Ensure no digit should clean from result input code', () => {
         // Arrange
+        const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
+
         // Act
+        act(() => {
+          result.current.handleKeyboardActions('Backspace')
+        })
+
         // Assert
+        expect(result.current.inputValue).toBe('')
       })
     })
 
