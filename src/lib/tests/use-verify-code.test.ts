@@ -12,6 +12,12 @@ describe('Hook use-verify-code Logic Tests', () => {
       // Assert
       expect(result.current.codeValue).toHaveLength(randomLength)
     })
+
+    it('Scenario - When hook calls, Expectation - Then cursor should focus on first digit', () => {
+      // Arrange
+      // Act
+      // Assert
+    })
   })
 
   describe('Keyboard (Characters, Digits) Actions', () => {
@@ -80,6 +86,12 @@ describe('Hook use-verify-code Logic Tests', () => {
 
       // Assert
       expect(result.current.inputValue).toBe(beforeActionInputValue)
+    })
+
+    it('Scenario - user press digit and there is space for adding another digit, Expectation - Ensure cursor focus on next digit', () => {
+      // Arrange
+      // Act
+      // Assert
     })
   })
 
