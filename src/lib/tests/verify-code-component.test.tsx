@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { render, renderHook, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { ReactVerifyCode } from '../components'
+import { useVerifyCode } from '../hooks'
 
 describe('Component verify-code Tests', () => {
   const randomLength = Math.floor(Math.random() * 100)
@@ -7,18 +9,10 @@ describe('Component verify-code Tests', () => {
   describe('Initial component to the dom', () => {
     it('Scenario - When component render in page, Expectation - Then cursor should focus on first digit', () => {
       // Arrange
-      render(<ReactVerifyCode />)
+      render(<ReactVerifyCode inputLength={randomLength} />)
 
       // Assert
       expect(screen.getAllByRole('verify-code')[0]).toHaveFocus()
-    })
-  })
-
-  describe('Keyboard (Characters, Digits) Actions', () => {
-    it('Scenario - user press digit and there is space for adding another digit, Expectation - Ensure cursor focus on next digit', () => {
-      // Arrange
-      // Act
-      // Assert
     })
   })
 
