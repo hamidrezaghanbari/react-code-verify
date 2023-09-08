@@ -130,7 +130,6 @@ describe('Hook use-verify-code Logic Tests', () => {
         const { result } = renderHook(() => useVerifyCode({ codeLength: randomLength }))
 
         // Act
-        const { inputValue: beforeActionInputValue } = result.current
         const oneDigit = Math.floor(Math.random() * 9)
 
         act(() => {
@@ -142,7 +141,7 @@ describe('Hook use-verify-code Logic Tests', () => {
         })
 
         // Assert
-        expect(result.current.inputValue).toBe(beforeActionInputValue.slice(0, -1))
+        expect(result.current.inputValue).toBe('')
       })
 
       it('Scenario - When user press Backspace And There is no other digits on left side, Expectation - Ensure no digit should clean from result input code', () => {
